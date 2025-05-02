@@ -3,6 +3,7 @@ import os
 
 from src.extract_data_image import ExtractDataFromImageYOLO
 from src.extract_data_file import ExtractDataFromFile
+from src.extract_data_xml import extract_data_from_xml
 
 
 class ProcessFiles:
@@ -15,12 +16,6 @@ class ProcessFiles:
         information = self.extractor_image.get_information(text)
 
         return information
-
-    # def extract_image(self, image_file):
-    #     text = self.extractor_image.extract_text_with_OCR(image_file)
-    #     information = self.extractor_image.get_information(text)
-
-    #     return information
 
     def extract_file(self, pdf_file):
         text = self.extractor_file.get_pages(pdf_file)
@@ -41,6 +36,10 @@ class ProcessFiles:
 
             elif file_ext in [".png", ".jpg", ".jpeg"]:
                 information = self.extract_image(file_path)
+                result += information
+
+            elif file_ext == ".xml":
+                information = extract_data_from_xml(file_path)
                 result += information
 
         except Exception as e:
