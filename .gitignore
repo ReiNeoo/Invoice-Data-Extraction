@@ -2,3 +2,7 @@
 .gradio
 data
 models
+
+_src/core/__pycache__
+_src/extractors/__pycache__
+_src/utils/__pycache__

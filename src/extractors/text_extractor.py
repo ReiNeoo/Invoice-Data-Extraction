@@ -1,12 +1,11 @@
-import json
+from _src.core.base import DataExtractor
 import ollama
-import os
-import tempfile
-from PIL import Image
-from io import BytesIO
 
 
-class ExtractData:
+class TextExtractor(DataExtractor):
+    def extract(self, text):
+        return self.get_information(text)
+
     def get_information(self, raw_text):
         query = f"""First understand all clusters then Extract the following fields, according to given cluster informations, from invoice text and output ONLY a JSON object with these keys:
         
@@ -44,35 +43,6 @@ class ExtractData:
                     text: {raw_text}
                     """
 
-        # query = f"""
-        #         Analyze the following text extracted from a receipt and format it into a JSON structure. Include educated guesses for missing information where appropriate. Return ONLY the JSON output without any additional text or explanation.
-
-        #         For the following fields, if the information is not explicitly provided, make an educated guess based on the context:
-        #         - payment details (of transaction)
-        #         - merchant information
-        #         - date (of transaction)
-        #         - hour (of transaction)
-
-        #         Please provide response only in Turkish.
-
-        #         Extracted text: {raw_text}
-
-        #         Return ONLY the JSON object without any additional text, explanations, or formatting.
-
-        #         JSON format must be as follows:
-        #         {
-        #     "paymentDetails": {
-        #         "amount": 270.00,
-        #             "paymentMethod": "Credit Card"},
-        #         "merchantInformation": {
-        #         "name": "Merchant Name",
-        #             "city": "City Name",
-        #             "address": "Street Address"},
-        #         "date": "dd.mm.yyyy",
-        #         "time": "hh:mm:ss"
-        #         }
-        #                         """
-
         response = ollama.chat(
             model='Llama3.1',
             messages=[
@@ -84,7 +54,3 @@ class ExtractData:
             ]
         )
         return response['message']['content']
-
-    def _jsonify_response(self, response):
-        _response = response.strip("```json\n").strip("```")
-        return json.dumps(_response)

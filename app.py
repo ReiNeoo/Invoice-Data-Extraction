@@ -1,27 +1,15 @@
 import gradio as gr
 import os
 
-from src.extract_data_image import ExtractDataFromImageYOLO
-from src.extract_data_file import ExtractDataFromFile
-from src.extract_data_xml import extract_data_from_xml
+from _src.extractors.xml_extractor import extract_data_from_xml
+from _src.extractors.image_extractor import ImageExtractor
+from _src.extractors.pdf_extractor import PDFExtractor
 
 
 class ProcessFiles:
     def __init__(self):
-        self.extractor_image = ExtractDataFromImageYOLO()
-        self.extractor_file = ExtractDataFromFile()
-
-    def extract_image(self, image_file):
-        text = self.extractor_image.extract_text_with_OCR(image_file)
-        information = self.extractor_image.get_information(text)
-
-        return information
-
-    def extract_file(self, pdf_file):
-        text = self.extractor_file.get_pages(pdf_file)
-        information = self.extractor_file.get_information(text)
-
-        return information
+        self.image_extractor = ImageExtractor()
+        self.file_extractor = PDFExtractor()
 
     def process_file(self, file):
         file_path = file.name
@@ -31,11 +19,11 @@ class ProcessFiles:
 
         try:
             if file_ext == ".pdf":
-                information = self.extract_file(file_path)
+                information = self.file_extractor.extract(file_path)
                 result += information
 
             elif file_ext in [".png", ".jpg", ".jpeg"]:
-                information = self.extract_image(file_path)
+                information = self.image_extractor.extract(file_path)
                 result += information
 
             elif file_ext == ".xml":

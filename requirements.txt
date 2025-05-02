@@ -1,0 +1,19 @@
+# Core dependencies
+numpy>=1.22.0
+Pillow>=9.0.0
+PyMuPDF>=1.19.0  # fitz library for PDF processing
+
+# Machine Learning & Computer Vision
+torch>=1.12.0
+transformers>=4.20.0
+doclayout_yolo>=0.1.0  # You may need to use the correct version/source
+
+# Language Models
+ollama>=0.1.0  # For local LLM integration
+
+# XML Processing
+lxml>=4.9.0  # More powerful XML processing than built-in
+
+# Utilities
+python-dotenv>=0.20.0  # Environment variable management
+
