@@ -1,4 +1,4 @@
-from _src.core.base import DataExtractor
+from src.core.base import DataExtractor
 import ollama
 
 

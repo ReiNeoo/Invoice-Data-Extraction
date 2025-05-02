@@ -1,6 +1,6 @@
 import fitz
 import ollama
-from _src.core.base import DataExtractor
+from src.core.base import DataExtractor
 
 
 class PDFExtractor(DataExtractor):

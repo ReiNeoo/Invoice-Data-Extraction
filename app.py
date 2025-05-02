@@ -1,9 +1,9 @@
 import gradio as gr
 import os
 
-from _src.extractors.xml_extractor import extract_data_from_xml
-from _src.extractors.image_extractor import ImageExtractor
-from _src.extractors.pdf_extractor import PDFExtractor
+from src.extractors.xml_extractor import extract_data_from_xml
+from src.extractors.image_extractor import ImageExtractor
+from src.extractors.pdf_extractor import PDFExtractor
 
 
 class ProcessFiles:

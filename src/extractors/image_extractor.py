@@ -1,6 +1,6 @@
 import ollama
-from _src.core.base import DataExtractor
-from _src.utils.model_loader import ModelLoader
+from src.core.base import DataExtractor
+from src.utils.model_loader import ModelLoader
 import PIL
 import os
 import tempfile
